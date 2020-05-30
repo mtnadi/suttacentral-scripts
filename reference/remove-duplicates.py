@@ -1,4 +1,5 @@
 import argparse
+import os.path
 
 parser = argparse.ArgumentParser(description="remove duplicate instances of references")
 parser.add_argument("filename", help="The json file to process")
@@ -10,7 +11,15 @@ json_filename = args.filename
 if json_filename[-5:] != ".json":
     raise ValueError("Invalid file")
 
-new_filename = json_filename + ".new"
+if args.dest:
+    if os.path.isfile(args.dest):
+        reply = input(f"Overwrite {args.dest}? (y/n):").lower().strip()
+        if reply != "y":
+            print("quitting")
+            exit()
+    new_filename = args.dest
+else:
+    new_filename = json_filename + ".new"
 print(f"creating {new_filename} . . .")
 
 
