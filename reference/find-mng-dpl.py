@@ -4,6 +4,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description="flag missing or duplicate references")
 parser.add_argument("filename", help="The text file to process of results from command line; best to cat reference files into one file but must be >>'d in order.")
+parser.add_argument("-d", action="store_true", help="Hack for pts ref like that in kn/dhp")
 args = parser.parse_args()
 
 text = ""
@@ -38,6 +39,9 @@ def get_pts_prefix(text, ed):
         dot_ind = p_ind + len(pref) - 1
     return text[p_ind:dot_ind + 1]
 
+def get_pts_dhp_prefix(text, ed):
+    return f"pts-vp-pli{ed}ed"
+
 # get pts 1ed prefix - may or may not have volume number
 def get_pts1_prefix(text):
     return get_pts_prefix(text, "1")
@@ -66,6 +70,16 @@ def get_min_max_ref(text, prefix):
         last_end_ind = text.index(",", last_ind)
     except ValueError:
         last_end_ind = text.index('"', last_ind)
+
+    # start dhp hack
+    # in case the ref appears at the end of the line, but it's not the last ref in the file
+    try:
+        if text.index('"', last_ind) < last_end_ind:
+            last_end_ind = text.index('"', last_ind)
+    except ValueError:
+        pass
+    # end hack
+
     last_ref = text[last_ind + len(prefix) : last_end_ind]
     # debugging print(f"prefix {prefix} first {first_ref} last {last_ref}")
     return [int(first_ref), int(last_ref)]
@@ -110,9 +124,19 @@ def check(text, prefix):
         print("Okay")
 
 check(text, get_bj_prefix(text))
-try:
-    check(text, get_pts1_prefix(text))
-    check(text, get_pts2_prefix(text))
-except ValueError:
-    check(text, get_pts_no_ed_prefix(text))
+if args.d:
+    try:
+        check(text, get_pts_dhp_prefix(text, "1"))
+    except ValueError:
+        pass
+    try:
+        check(text, get_pts_dhp_prefix(text, "2"))
+    except ValueError:
+        pass
+else:
+    try:
+        check(text, get_pts1_prefix(text))
+        check(text, get_pts2_prefix(text))
+    except ValueError:
+        check(text, get_pts_no_ed_prefix(text))
 check(text, get_ms_prefix(text))

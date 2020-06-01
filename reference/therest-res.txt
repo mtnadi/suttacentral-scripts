@@ -1,0 +1,106 @@
+KP
+***Check bj24. 2-22
+Okay
+***Check pts-vp-pli 1-9
+Missing pts-vp-pli2
+Missing pts-vp-pli3
+***Check ms18Kh_ 1-106
+Okay
+
+MIL
+***Check bj. 1-365
+Missing bj.20
+Missing bj.196
+Missing bj.208
+***Check pts-vp-pli 1-420
+Missing pts-vp-pli331
+Missing pts-vp-pli357
+***Check ms28Mi_ 1-2032
+Okay
+
+NE
+***Check bj39. 2-288
+Okay
+***Check pts-vp-pli 1-193
+Missing pts-vp-pli47
+Missing pts-vp-pli51
+Missing pts-vp-pli88
+Missing pts-vp-pli122
+Missing pts-vp-pli180
+***Check ms27Ne_ 1-1143
+Okay
+
+PE
+***Check bj40. 2-328
+Okay
+***Check pts-vp-pli 1-260
+Missing pts-vp-pli30
+Missing pts-vp-pli33
+Missing pts-vp-pli38
+Missing pts-vp-pli43
+Missing pts-vp-pli82
+Missing pts-vp-pli102
+Missing pts-vp-pli105
+Missing pts-vp-pli138
+Missing pts-vp-pli149
+Missing pts-vp-pli153
+Missing pts-vp-pli160
+Missing pts-vp-pli178
+Missing pts-vp-pli185
+Missing pts-vp-pli192
+Missing pts-vp-pli193
+Missing pts-vp-pli196
+Missing pts-vp-pli204
+Missing pts-vp-pli221
+Missing pts-vp-pli245
+Missing pts-vp-pli255
+***Check ms27Pe_ 2-1003
+Okay
+
+PV
+***Check bj27. 2-160
+Okay
+***Check pts-vp-pli2ed 1-95
+Missing pts-vp-pli2ed31
+Missing pts-vp-pli2ed38
+Missing pts-vp-pli2ed46
+Missing pts-vp-pli2ed52
+Missing pts-vp-pli2ed75
+Missing pts-vp-pli2ed76
+Missing pts-vp-pli2ed77
+Missing pts-vp-pli2ed78
+Missing pts-vp-pli2ed84
+***Check ms19Pv_ 1-885
+Okay
+
+THA-AP
+***Check bj36. 2-628
+Okay
+***Check pts-vp-pli1. 1-338
+Okay
+***Check ms20Ap1_ 1-7891
+Okay
+
+THI-AP
+***Check bj37. 2-218
+Okay
+***Check pts-vp-pli2. 512-615
+Okay
+***Check ms20Ap2_ 1-1465
+Okay
+
+VV
+***Check bj26. 2-218
+Okay
+***Check pts-vp-pli2ed 1-135
+Missing pts-vp-pli2ed20
+Missing pts-vp-pli2ed46
+Missing pts-vp-pli2ed47
+Missing pts-vp-pli2ed75
+Missing pts-vp-pli2ed85
+Missing pts-vp-pli2ed98
+Missing pts-vp-pli2ed99
+Missing pts-vp-pli2ed132
+Missing pts-vp-pli2ed133
+***Check ms19Vv_ 1-1148
+Okay
