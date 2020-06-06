@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import argparse
 
 parser = argparse.ArgumentParser(description="Convert a csv'd json bilara-data file back into json")
