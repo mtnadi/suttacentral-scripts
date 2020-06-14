@@ -15,14 +15,17 @@ if csv_filename[-4:] != ".csv":
 json_filename = args.dest if args.dest else csv_filename[:-3] + "new.json"
 print(f"creating {json_filename}...")
 
+f_first = '  "{x}": "{y}"'
+f_rest = ',\n  "{x}": "{y}"'
 with open(json_filename, "w") as f:
     f.write("{\n")
     with open(csv_filename) as c:
+        first = True;
         for line in c:
             [x, y] = line.strip("\n").split("\t")
-            out_line = f'  "{x}": "{y}",\n'
+            out_line = f_first.format(x=x, y=y) if first else f_rest.format(x=x, y=y)
             if args.v:
                 print(out_line)
             f.write(out_line)
-    f.write("}")
-    print("TODO: remove trailing comma from last line")
+            first = False;
+    f.write("\n}")
