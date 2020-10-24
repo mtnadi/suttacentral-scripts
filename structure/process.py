@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
 
+from collections import OrderedDict
 import json
 
 
 # Start with hard-coded file to process.
 filename = "/Users/tracy/Development/sc-data/structure/division/sutta/dn.json"
+name_filename = "./name-sandbox.json"
+tree_filename = "./tree-sandbox.json"
 
 # Read in .json file.
 with open(filename) as f:
     data = json.load(f)
 
 # These will hold the final structures we need.
-tree = {}
-names = {}
+tree = OrderedDict()
+names = OrderedDict()
 
 # Cheat.  Figure out the longest path length.
 max_path_length = 0
@@ -41,13 +44,9 @@ for entry in data:
         if len(split_path) == max_path_length - 1:
             parent[split_path[-1]] = []
         else:
-            parent[split_path[-1]] = {}
+            parent[split_path[-1]] = OrderedDict()
     else:
-        # This is a sutta/text i.e. a leaf.
-        if parent == {}:
-            # This is the first sutta in this (sub)division.  Make it an array.
-            parent = []
-        # Append it to the array.
+        # This is a sutta/text i.e. a leaf.  Append it to the array.
         parent.append(split_path[-1])
 
     # To create the name lookup, we just need the last bit of the path.
@@ -57,3 +56,8 @@ for entry in data:
 import pprint
 pprint.pprint(names)
 pprint.pprint(tree)
+
+with open(name_filename, 'w') as json_file:
+    json.dump(names, json_file, indent = 2, ensure_ascii=False)
+with open(tree_filename, 'w') as json_file:
+    json.dump(tree, json_file, indent = 2, ensure_ascii=False)
