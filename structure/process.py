@@ -5,7 +5,7 @@ import json
 
 
 # Start with hard-coded file to process.
-filename = "/Users/tracy/Development/sc-data/structure/division/sutta/dn.json"
+filename = "/Users/tracy/Development/sc-data/structure/division/sutta/sn.json"
 name_filename = "./name-sandbox.json"
 tree_filename = "./tree-sandbox.json"
 
@@ -17,10 +17,16 @@ with open(filename) as f:
 tree = OrderedDict()
 names = OrderedDict()
 
-# Cheat.  Figure out the longest path length.
-max_path_length = 0
+# Cheat.  Go over all the nodes and record whether it is the parent of a leaf node.
+previous_entry = None
 for entry in data:
-    max_path_length = max(max_path_length, len(entry["_path"].split("/")))
+    if "type" in entry and entry["type"] != "text":
+        entry["grandparent"] = True
+    else:
+        if previous_entry["grandparent"]:
+            previous_entry["grandparent"] = False
+        entry["grandparent"] = False
+    previous_entry = entry
 
 # Each .json file turns into a list of dicts.
 # Go through each element and pick out the _path and name elements and do
@@ -28,7 +34,7 @@ for entry in data:
 for entry in data:
     # Assert that there are no keys that have not been mentioned in the ticket.
     for key in entry.keys():
-        assert key in ["_path", "name", "num", "child_count", "display_num", "type", "acronym", "volpage", "biblio_uid"], f"Unknown key found: {key}"
+        assert key in ["_path", "name", "num", "child_count", "display_num", "type", "acronym", "volpage", "biblio_uid", "grandparent"], f"Unknown key found: {key}"
 
     # To create the tree, we need to split up the path into bits, and then make
     # a tree.
@@ -41,7 +47,7 @@ for entry in data:
     if "type" in entry and entry["type"] != "text":
         # This is a division or subdivision.  Add it as a key with value [] if
         # the next level will be suttas, {} otherwise.
-        if len(split_path) == max_path_length - 1:
+        if not entry["grandparent"]:
             parent[split_path[-1]] = []
         else:
             parent[split_path[-1]] = OrderedDict()
