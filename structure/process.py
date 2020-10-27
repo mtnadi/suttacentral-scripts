@@ -119,6 +119,27 @@ ignore = [
     "/Users/tracy/Development/sc-data/structure/division/vinaya/lzh-dg-bi-pm.json",
     "/Users/tracy/Development/sc-data/structure/division/vinaya/lzh-dg-bu-pm-2.json",
     "/Users/tracy/Development/sc-data/structure/division/vinaya/lzh-dg-bu-pm.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/lzh-ka-bu-pm.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/lzh-mg-bi-pm.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/lzh-mg-bu-pm.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/lzh-mi-bi-pm.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/lzh-mi-bu-pm.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/lzh-mu-bi-pm.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/lzh-mu-bu-pm.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/lzh-sarv-bi-pm.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/lzh-sarv-bu-pm-2.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/lzh-sarv-bu-pm.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/pli-tv-bi-pm.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/pli-tv-bu-pm.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/san-lo-bu-pm.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/san-mg-bu-pm.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/san-mu-bu-pm-gbm2.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/san-mu-bu-pm-gbm3.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/san-mu-mpt-bu-pm.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/san-sarv-bi-pm-tf3215.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/san-sarv-bi-pm-tf44.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/san-sarv-bu-pm-tf11.json",
+    "/Users/tracy/Development/sc-data/structure/division/vinaya/xct-mu-bu-pm.json",
 ]
 for root, dirs, files in os.walk(directory):
     for file in files:
@@ -127,4 +148,4 @@ for root, dirs, files in os.walk(directory):
             print(f"SKIPPING {filename}")
             continue
         print(f"Processing {filename}")
-        #split_file(filename, debug=True)
+        split_file(filename, debug=True)
