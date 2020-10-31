@@ -46,6 +46,7 @@ def split_file(filename, division_set, super_name, debug=False):
             names = {split_path[-1]: OrderedDict()}
             assert split_path[-1] not in division_set, f"Duplicate division path name {split_path[-1]}"
             division_set.add(split_path[-1])
+            assert split_path[-1] in super_name, f"super-name.json is missing {split_path[-1]}"
             assert super_name[split_path[-1]] == "", f"Name already filled for {split_path[-1]}"
             super_name[split_path[-1]] = entry["name"]
             first = False
@@ -85,14 +86,14 @@ with open("super-name.json") as f:
 division_set = set()
 
 # HACK def:
-one_file = "/Users/tracy/Development/sc-data/structure/division/sutta/dn.json"
 one_file = "/Users/tracy/Development/sc-data/structure/division/vinaya/pli-tv-bu-pm.json"
+one_file = "/Users/tracy/Development/sc-data/structure/division/sutta/dn.json"
 for root, dirs, files in os.walk(directory):
     for file in files:
         filename = os.path.join(root, file)
         # Select just one file HACK
-        if filename != one_file:
-            continue
+#        if filename != one_file:
+#            continue
         # END HACK
         print(f"Processing {filename}")
         split_file(filename, division_set, super_name, debug=True)
@@ -112,7 +113,7 @@ def find_leaves(obj, division_set_source):
             find_leaves(v, division_set_source)
     else:
         division_set_source.add(obj)
-find_leaves(super_tree[0], division_set_source)
+find_leaves(super_tree, division_set_source)
 assert division_set_source == division_set, "Leaves in super_tree.json don't match divisions we collected"
 
 # Sanity!  Check we've filled out everything in super-name.
