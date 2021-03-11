@@ -1,7 +1,7 @@
 #!/usr/local/opt/python@3.8/bin/python3
 import csv
 
-# START HERE: 10, but only after fixing 1.1 (using script to check)
+# START HERE: 10
 # Once 1.1 is happy, check in script changes.  And commit ref8 and 9!
 #
 # Other future ones:
@@ -87,9 +87,8 @@ files = [
 #    "ref20.csv",
 #    "ref21.csv",
 ]
-input_file = "ref1.2.csv"
 for input_file in files:
-    print(f"Processing {input_file}...")
+    print(f"...Processing {input_file}...")
 
     assert input_file[:3] == "ref" and input_file[-4:] == ".csv", "Funky filename.  Expected filename ref[blah].csv"
 
@@ -131,6 +130,7 @@ for input_file in files:
 
     # Check that all page numbers appear in order.
     prev = False
+    firstpage = None
     ref_prefix = "pts-vp-en6."
     for ref in pts_vp_en:
         assert ref.startswith(ref_prefix)
@@ -138,17 +138,26 @@ for input_file in files:
         if prev:
             assert prev + 1 == page, f"Page {page} does not follow previous page {prev}"
         else:
-            print(f"Starts at page {page}.")
+            firstpage = page
         prev = page
-    print(f"Ends at page {prev}.")
+    if firstpage and page:
+        print(f"pg {firstpage}-{prev}")
+    else:
+        print("(no new page)")
 
     # Check that all pts-cs references appear in order and display the ranges.
     prev_bits = False
     prev_ref = False
     start = False
     ref_prefix = "pts-cs"
+    #START HERE ch 5 is weird, and we'll have to start entering the chapter
     for ref in pts_cs:
-        assert ref.startswith(f"{ref_prefix}{chapter}.")  # e.g. "pts-cs2.1."
+        # Expect something like "pts-cs2.1." that needs its bits handled, else
+        # in chapters 1 and 2, a plain "pts-cs1.3" without subbits
+        if not ref.startswith(f"{ref_prefix}{chapter}."):
+            assert ref.startswith(f"{ref_prefix}{chapter}"), f"Unexpected ref {ref}"
+            print(f"{pts_cs}")
+            break
         if not start:
             start = ref
         bits = ref[len(ref_prefix):].split(".")
@@ -173,6 +182,8 @@ for input_file in files:
                 assert bits[:-1] == prev_bits[:-1]
         prev_bits = bits
         prev_ref = ref
+    else:
+        print(f"{start} - {prev_ref}")
 
     # Check that pm references appear in order and display the ranges.
     prev_class = False
@@ -200,3 +211,5 @@ for input_file in files:
                 assert prev_class == rule_class
         prev_class = rule_class
         prev_number = rule_number
+    if prev_class:
+        print(f"{start} - {ref_prefix}{sangha}-{prev_class}{prev_number}")
