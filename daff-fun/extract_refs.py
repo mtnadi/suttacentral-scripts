@@ -150,7 +150,13 @@ for input_file in files:
     prev_ref = False
     start = False
     ref_prefix = "pts-cs"
-    #START HERE ch 5 is weird, and we'll have to start entering the chapter
+    # For reference purposes, at chapter 5, subtract one for the reference.
+    whole_chapter = int(chapter.split(".")[0])
+    if whole_chapter >= 5:
+        chapter = str(int(chapter) - 1)
+    if whole_chapter >= 9:
+        chapter = str(int(chapter) - 1)
+
     for ref in pts_cs:
         # Expect something like "pts-cs2.1." that needs its bits handled, else
         # in chapters 1 and 2, a plain "pts-cs1.3" without subbits
