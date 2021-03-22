@@ -2,7 +2,6 @@
 import csv
 
 # START HERE: 10
-# Once 1.1 is happy, check in script changes.  And commit ref8 and 9!
 #
 # Other future ones:
 # 2.1 2.2 2.6 2.8 2.9 2.10 2.14
@@ -74,7 +73,7 @@ files = [
     "ref7.csv",
     "ref8.csv",
     "ref9.csv",
-#    "ref10.csv",
+    "ref10.csv",
 #    "ref11.csv",
 #    "ref12.csv",
 #    "ref13.csv",
@@ -124,8 +123,8 @@ for input_file in files:
             root_segments.append(line.strip().rstrip(",").split(": ", 1)[0].strip('"'))
 
     # Check that segment numbers match between root file and csv.
-    #for i in range(min(len(root_segments), len(csv_segments))):
-    #    print(f"{root_segments[i]:25}{csv_segments[i]}")
+#    for i in range(min(len(root_segments), len(csv_segments))):
+#        print(f"{root_segments[i]:25}{csv_segments[i]} {'xxx' if root_segments[i] != csv_segments[i] else ''}")
     assert root_segments == csv_segments, "Segments do not agree."
 
     # Check that all page numbers appear in order.
