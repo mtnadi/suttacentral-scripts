@@ -1,8 +1,6 @@
 #!/usr/local/opt/python@3.8/bin/python3
 import csv
 
-# START HERE: 10
-#
 # Other future ones:
 # 2.1 2.2 2.6 2.8 2.9 2.10 2.14
 # 4 5 7 10 11 13 14 15 16 17 21
@@ -21,6 +19,7 @@ import csv
 #
 # 14 15
 # https://discourse.suttacentral.net/t/continuation-of-discussion-for-bilara-users/16477/213?u=tracy
+# https://discourse.suttacentral.net/t/continuation-of-discussion-for-bilara-users/16477/217?u=tracy
 #
 # 21
 # https://discourse.suttacentral.net/t/continuation-of-discussion-for-bilara-users/16477/245?u=tracy
@@ -74,7 +73,7 @@ files = [
     "ref8.csv",
     "ref9.csv",
     "ref10.csv",
-#    "ref11.csv",
+    "ref11.csv",
 #    "ref12.csv",
 #    "ref13.csv",
 #    "ref14.csv",
@@ -149,7 +148,8 @@ for input_file in files:
     prev_ref = False
     start = False
     ref_prefix = "pts-cs"
-    # For reference purposes, at chapter 5, subtract one for the reference.
+    # For reference purposes, at chapter 5, subtract one for the reference, and
+    # another one at chapter 9.
     whole_chapter = int(chapter.split(".")[0])
     if whole_chapter >= 5:
         chapter = str(int(chapter) - 1)
