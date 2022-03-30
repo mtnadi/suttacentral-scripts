@@ -1,6 +1,9 @@
 #!/usr/local/opt/python@3.8/bin/python3
 import csv
 
+# START HERE:
+# COLLECT REF 13
+
 # Other future ones:
 # 2.1 2.2 2.6 2.8 2.9 2.10 2.14
 # 4 5 7 10 11 13 14 15 16 17 21
@@ -74,7 +77,7 @@ files = [
     "ref9.csv",
     "ref10.csv",
     "ref11.csv",
-#    "ref12.csv",
+    "ref12.csv",
 #    "ref13.csv",
 #    "ref14.csv",
 #    "ref15.csv",
