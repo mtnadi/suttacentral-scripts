@@ -2,7 +2,7 @@
 import csv
 
 # START HERE:
-# COLLECT REF 17
+# COLLECT REF 19
 
 # Other future ones:
 # 2.1 2.2 2.6 2.8 2.9 2.10 2.14
@@ -83,7 +83,7 @@ files = [
     "ref15.csv",
     "ref16.csv",
     "ref17.csv",
-#    "ref18.csv",
+    "ref18.csv",
 #    "ref19.csv",
 #    "ref20.csv",
 #    "ref21.csv",
