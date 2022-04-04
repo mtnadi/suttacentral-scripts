@@ -1,9 +1,6 @@
 #!/usr/local/opt/python@3.8/bin/python3
 import csv
 
-# START HERE:
-# COLLECT REF 21
-
 # Other future ones:
 # 2.1 2.2 2.6 2.8 2.9 2.10 2.14
 # 4 5 7 10 11 13 14 15 16 17 21
@@ -86,7 +83,7 @@ files = [
     "ref18.csv",
     "ref19.csv",
     "ref20.csv",
-#    "ref21.csv",
+    "ref21.csv",
 ]
 for input_file in files:
     print(f"...Processing {input_file}...")
