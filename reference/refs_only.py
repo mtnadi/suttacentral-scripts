@@ -55,10 +55,11 @@ files = [
     "ref20.csv",
     "ref21.csv",
 ]
+files = ["insert_file.csv"]
 for input_file in files:
     print(f"...Processing {input_file}...")
 
-    assert input_file[:3] == "ref" and input_file[-4:] == ".csv", "Funky filename.  Expected filename ref[blah].csv"
+#    assert input_file[:3] == "ref" and input_file[-4:] == ".csv", "Funky filename.  Expected filename ref[blah].csv"
 
     # Run through csv and pull out references with their segments.
     csv_segments = []
