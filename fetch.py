@@ -7,8 +7,8 @@ import subprocess
 
 parser = argparse.ArgumentParser(description="open json file given rule or chapter abbreviation e.g. kd1, bu-pc35")
 parser.add_argument("abbr")
-parser.add_argument("-c", help="Open comment file")
-parser.add_argument("-r", help="Open root file")
+parser.add_argument("-c", action="store_true", help="Open comment file")
+parser.add_argument("-r", action="store_true", help="Open root file")
 args = parser.parse_args()
 
 abbr = args.abbr
