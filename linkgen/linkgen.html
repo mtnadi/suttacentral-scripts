@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<form id="frm1" action="linkgen.html">
+  <input type="text" name="vol1" list="vol1" />
+  <datalist id="vol1">
+      <option value="bi">bi</option>
+      <option value="bu">bu</option>
+      <option value="kd">kd</option>
+      <option value="pvr">pvr</option>
+      <option value="an">an</option>
+      <option value="dn">dn</option>
+      <option value="mn">mn</option>
+      <option value="sn">sn</option>
+  </datalist>
+  <input type="text" name="vol2" list="vol2" />
+  <datalist id="vol2">
+      <option value="as">as</option>
+      <option value="ay">ay</option>
+      <option value="np">np</option>
+      <option value="pc">pc</option>
+      <option value="pd">pd</option>
+      <option value="pj">pj</option>
+      <option value="sk">sk</option>
+      <option value="ss">ss</option>
+  </datalist>
+  First name: <input type="text" name="fname" value="Donald"><br>
+  Last name: <input type="text" name="lname" value="Duck"><br><br>
+  <input type="submit" value="Submit">
+</form> 
+
+<p>Click "Try it" to display the value of each element in the form.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+  var x = document.getElementById("frm1");
+  var text = "";
+  var i;
+  for (i = 0; i < x.length ;i++) {
+    text += x.elements[i].value + "<br>";
+  }
+  document.getElementById("demo").innerHTML = text;
+}
+</script>
+
+</body>
+</html>
+
