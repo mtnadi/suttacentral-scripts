@@ -25,20 +25,22 @@ elif abbr.startswith("pvr"):
 
 json_filename = "/Users/tracy/Development/bilara-data/translation/en/brahmali/vinaya"
 bilara_type = "translation"
+language = "en-brahmali"
 if args.c:
     json_filename = "/Users/tracy/Development/bilara-data/comment/en/brahmali/vinaya"
     bilara_type = "comment"
 elif args.r:
     json_filename = "/Users/tracy/Development/bilara-data/root/pli/ms/vinaya"
     bilara_type = "root"
+    language = "pli-ms"
 
-if bilara_type == "root":
-    print("still todo")
-else:
-    if book in ["bi", "bu"]:
-        json_filename += f"/pli-tv-{book}-vb/pli-tv-{book}-vb-{rule_class}/pli-tv-{book}-vb-{rule_class}{number}_{bilara_type}-en-brahmali.json"
+if book in ["bi", "bu"]:
+    if rule_class == "as":
+        print("still TODO")
     else:
-        json_filename += f"/pli-tv-{book}/pli-tv-{abbr}_{bilara_type}-en-brahmali.json"
+        json_filename += f"/pli-tv-{book}-vb/pli-tv-{book}-vb-{rule_class}/pli-tv-{book}-vb-{rule_class}{number}_{bilara_type}-{language}.json"
+else:
+    json_filename += f"/pli-tv-{book}/pli-tv-{abbr}_{bilara_type}-{language}.json"
 
 # Check whether file exists before opening.
 if pathlib.Path(json_filename).is_file():
