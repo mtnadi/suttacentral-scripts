@@ -12,6 +12,7 @@ parser.add_argument("-r", action="store_true", help="Open root file")
 args = parser.parse_args()
 
 abbr = args.abbr
+sutta = False
 if abbr.startswith("bi") or abbr.startswith("bu"):
     book = abbr[0:2]
     rule_class = abbr[3:5]
@@ -22,25 +23,55 @@ elif abbr.startswith("kd"):
 elif abbr.startswith("pvr"):
     book = abbr[0:3]
     number = abbr[3:]
-
-json_filename = "/Users/tracy/Development/bilara-data/translation/en/brahmali/vinaya"
-bilara_type = "translation"
-language = "en-brahmali"
-if args.c:
-    json_filename = "/Users/tracy/Development/bilara-data/comment/en/brahmali/vinaya"
-    bilara_type = "comment"
-elif args.r:
-    json_filename = "/Users/tracy/Development/bilara-data/root/pli/ms/vinaya"
-    bilara_type = "root"
-    language = "pli-ms"
-
-if book in ["bi", "bu"]:
-    if rule_class == "as":
-        print("still TODO")
-    else:
-        json_filename += f"/pli-tv-{book}-vb/pli-tv-{book}-vb-{rule_class}/pli-tv-{book}-vb-{rule_class}{number}_{bilara_type}-{language}.json"
+elif abbr.startswith("an") or abbr.startswith("sn"):
+    collection = abbr[0:2]
+    dot = abbr.find(".")
+    book = abbr[2:dot]
+    number = abbr[dot + 1:]
+    sutta = True
+elif abbr.startswith("mn") or abbr.startswith("dn"):
+    collection = abbr[0:2]
+    number = abbr[2:]
+    sutta = True
 else:
-    json_filename += f"/pli-tv-{book}/pli-tv-{abbr}_{bilara_type}-{language}.json"
+    print(f"Can't handle {abbr} yet")
+
+if sutta:
+    json_filename = "/Users/tracy/Development/bilara-data/translation/en/sujato/sutta"
+    bilara_type = "translation"
+    language = "en-sujato"
+    if args.c:
+        json_filename = "/Users/tracy/Development/bilara-data/comment/en/sujato/sutta"
+        bilara_type = "comment"
+    elif args.r:
+        json_filename = "/Users/tracy/Development/bilara-data/root/pli/ms/sutta"
+        bilara_type = "root"
+        language = "pli-ms"
+
+    if collection in ["an", "sn"]:
+        json_filename += f"/{collection}/{collection}{book}/{abbr}_{bilara_type}-{language}.json"
+    else:
+        json_filename += f"/{collection}/{abbr}_{bilara_type}-{language}.json"
+
+else:
+    json_filename = "/Users/tracy/Development/bilara-data/translation/en/brahmali/vinaya"
+    bilara_type = "translation"
+    language = "en-brahmali"
+    if args.c:
+        json_filename = "/Users/tracy/Development/bilara-data/comment/en/brahmali/vinaya"
+        bilara_type = "comment"
+    elif args.r:
+        json_filename = "/Users/tracy/Development/bilara-data/root/pli/ms/vinaya"
+        bilara_type = "root"
+        language = "pli-ms"
+
+    if book in ["bi", "bu"]:
+        if rule_class == "as":
+            print("still TODO")
+        else:
+            json_filename += f"/pli-tv-{book}-vb/pli-tv-{book}-vb-{rule_class}/pli-tv-{book}-vb-{rule_class}{number}_{bilara_type}-{language}.json"
+    else:
+        json_filename += f"/pli-tv-{book}/pli-tv-{abbr}_{bilara_type}-{language}.json"
 
 # Check whether file exists before opening.
 if pathlib.Path(json_filename).is_file():
