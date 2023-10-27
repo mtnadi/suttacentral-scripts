@@ -33,6 +33,12 @@ elif abbr.startswith("mn") or abbr.startswith("dn"):
     collection = abbr[0:2]
     number = abbr[2:]
     sutta = True
+elif abbr.startswith("thag") or abbr.startswith("thig") or abbr.startswith("cp"):
+    if abbr.startswith("cp"):
+        collection = f"kn/{abbr[0:2]}"
+    else:
+        collection = f"kn/{abbr[0:4]}"
+    sutta = True
 else:
     print(f"Can't handle {abbr} yet")
 
