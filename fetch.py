@@ -4,6 +4,8 @@ import argparse
 import pathlib
 import subprocess
 
+BILARA_DATA_DIR = "/home/nadi/Development/bilara-data"
+
 
 parser = argparse.ArgumentParser(description="open json file given rule or chapter abbreviation e.g. kd1, bu-pc35")
 parser.add_argument("abbr")
@@ -43,14 +45,14 @@ else:
     print(f"Can't handle {abbr} yet")
 
 if sutta:
-    json_filename = "/Users/tracy/Development/bilara-data/translation/en/sujato/sutta"
+    json_filename = f"{BILARA_DATA_DIR}/translation/en/sujato/sutta"
     bilara_type = "translation"
     language = "en-sujato"
     if args.c:
-        json_filename = "/Users/tracy/Development/bilara-data/comment/en/sujato/sutta"
+        json_filename = f"{BILARA_DATA_DIR}/comment/en/sujato/sutta"
         bilara_type = "comment"
     elif args.r:
-        json_filename = "/Users/tracy/Development/bilara-data/root/pli/ms/sutta"
+        json_filename = f"{BILARA_DATA_DIR}/root/pli/ms/sutta"
         bilara_type = "root"
         language = "pli-ms"
 
@@ -60,14 +62,14 @@ if sutta:
         json_filename += f"/{collection}/{abbr}_{bilara_type}-{language}.json"
 
 else:
-    json_filename = "/Users/tracy/Development/bilara-data/translation/en/brahmali/vinaya"
+    json_filename = f"{BILARA_DATA_DIR}/translation/en/brahmali/vinaya"
     bilara_type = "translation"
     language = "en-brahmali"
     if args.c:
-        json_filename = "/Users/tracy/Development/bilara-data/comment/en/brahmali/vinaya"
+        json_filename = f"{BILARA_DATA_DIR}/comment/en/brahmali/vinaya"
         bilara_type = "comment"
     elif args.r:
-        json_filename = "/Users/tracy/Development/bilara-data/root/pli/ms/vinaya"
+        json_filename = f"{BILARA_DATA_DIR}/root/pli/ms/vinaya"
         bilara_type = "root"
         language = "pli-ms"
 
