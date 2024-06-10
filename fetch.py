@@ -4,7 +4,13 @@ import argparse
 import pathlib
 import subprocess
 
-BILARA_DATA_DIR = "/home/nadi/Development/bilara-data"
+BILARA_DATA_DIR = "/home/nadi/Development/sc/bilara-data"
+
+# TODO pts vp refs e.g.
+# S. IV, 142
+# Vin. I, 22
+# A. III, 187
+# Perhaps open file directly or spit out the range it covers (for short suttas)
 
 
 parser = argparse.ArgumentParser(description="open json file given rule or chapter abbreviation e.g. kd1, bu-pc35")
@@ -25,21 +31,57 @@ elif abbr.startswith("kd"):
 elif abbr.startswith("pvr"):
     book = abbr[0:3]
     number = abbr[3:]
-elif abbr.startswith("an") or abbr.startswith("sn"):
+elif abbr.startswith("an") or (abbr.startswith("sn") and not abbr.startswith("snp")):
     collection = abbr[0:2]
     dot = abbr.find(".")
     book = abbr[2:dot]
     number = abbr[dot + 1:]
     sutta = True
-elif abbr.startswith("mn") or abbr.startswith("dn"):
+elif (abbr.startswith("mn") and not abbr.startswith("mnd")) or abbr.startswith("dn"):
     collection = abbr[0:2]
     number = abbr[2:]
     sutta = True
-elif abbr.startswith("thag") or abbr.startswith("thig") or abbr.startswith("cp"):
-    if abbr.startswith("cp"):
-        collection = f"kn/{abbr[0:2]}"
+elif abbr.startswith("thag") or abbr.startswith("thig"):
+    collection = f"kn/{abbr[0:4]}"
+    sutta = True
+elif abbr.startswith("cp") or abbr.startswith("kp"):
+    collection = f"kn/{abbr[0:2]}"
+    sutta = True
+elif abbr.startswith("snp") or abbr.startswith("ud"):
+    dot = abbr.find(".")
+    if abbr.startswith("ud"):
+        book = abbr[0:2]
+        vagga = abbr[2:dot]
     else:
-        collection = f"kn/{abbr[0:4]}"
+        book = abbr[0:3]
+        vagga = abbr[3:dot]
+    number = abbr[dot + 1:]
+    collection = f"kn/{book}/vagga{vagga}"
+    sutta = True
+elif abbr.startswith("iti"):
+    itivaggas = {
+            1: [1, 10],
+            2: [11, 20],
+            3: [21, 27],
+            4: [28, 37],
+            5: [38, 49],
+            6: [50, 59],
+            7: [60, 69],
+            8: [70, 79],
+            9: [80, 89],
+            10: [90, 99],
+            11: [100, 112]}
+    def get_iti_vagga(number):
+        for vagga, [start, finish] in itivaggas.items():
+            if number > finish:
+                next
+            elif number >= start:
+                return vagga
+        else:
+            print(f"Something funny with {abbr}.  iti runs from 1 to 112")
+    number = int(abbr[3:])
+    vagga = get_iti_vagga(number)
+    collection = f"kn/iti/vagga{vagga}"
     sutta = True
 else:
     print(f"Can't handle {abbr} yet")
