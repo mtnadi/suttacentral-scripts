@@ -16,6 +16,7 @@ BILARA_DATA_DIR = "/home/nadi/Development/sc/bilara-data"
 parser = argparse.ArgumentParser(description="open json file given rule or chapter abbreviation e.g. kd1, bu-pc35")
 parser.add_argument("abbr")
 parser.add_argument("-c", action="store_true", help="Open comment file")
+parser.add_argument("-m", action="store_true", help="Open html file")
 parser.add_argument("-r", action="store_true", help="Open root file")
 args = parser.parse_args()
 
@@ -85,43 +86,52 @@ elif abbr.startswith("iti"):
     sutta = True
 else:
     print(f"Can't handle {abbr} yet")
+    exit()
 
 if sutta:
     json_filename = f"{BILARA_DATA_DIR}/translation/en/sujato/sutta"
     bilara_type = "translation"
-    language = "en-sujato"
+    language = "-en-sujato"
     if args.c:
         json_filename = f"{BILARA_DATA_DIR}/comment/en/sujato/sutta"
         bilara_type = "comment"
+    elif args.m:
+        json_filename = f"{BILARA_DATA_DIR}/html/pli/ms/sutta"
+        bilara_type = "html"
+        language = ""
     elif args.r:
         json_filename = f"{BILARA_DATA_DIR}/root/pli/ms/sutta"
         bilara_type = "root"
-        language = "pli-ms"
+        language = "-pli-ms"
 
     if collection in ["an", "sn"]:
-        json_filename += f"/{collection}/{collection}{book}/{abbr}_{bilara_type}-{language}.json"
+        json_filename += f"/{collection}/{collection}{book}/{abbr}_{bilara_type}{language}.json"
     else:
-        json_filename += f"/{collection}/{abbr}_{bilara_type}-{language}.json"
+        json_filename += f"/{collection}/{abbr}_{bilara_type}{language}.json"
 
 else:
     json_filename = f"{BILARA_DATA_DIR}/translation/en/brahmali/vinaya"
     bilara_type = "translation"
-    language = "en-brahmali"
+    language = "-en-brahmali"
     if args.c:
         json_filename = f"{BILARA_DATA_DIR}/comment/en/brahmali/vinaya"
         bilara_type = "comment"
+    elif args.m:
+        json_filename = f"{BILARA_DATA_DIR}/html/pli/ms/vinaya"
+        bilara_type = "html"
+        language = ""
     elif args.r:
         json_filename = f"{BILARA_DATA_DIR}/root/pli/ms/vinaya"
         bilara_type = "root"
-        language = "pli-ms"
+        language = "-pli-ms"
 
     if book in ["bi", "bu"]:
         if rule_class == "as":
             print("still TODO")
         else:
-            json_filename += f"/pli-tv-{book}-vb/pli-tv-{book}-vb-{rule_class}/pli-tv-{book}-vb-{rule_class}{number}_{bilara_type}-{language}.json"
+            json_filename += f"/pli-tv-{book}-vb/pli-tv-{book}-vb-{rule_class}/pli-tv-{book}-vb-{rule_class}{number}_{bilara_type}{language}.json"
     else:
-        json_filename += f"/pli-tv-{book}/pli-tv-{abbr}_{bilara_type}-{language}.json"
+        json_filename += f"/pli-tv-{book}/pli-tv-{abbr}_{bilara_type}{language}.json"
 
 # Check whether file exists before opening.
 if pathlib.Path(json_filename).is_file():
