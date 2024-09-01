@@ -18,6 +18,8 @@ parser.add_argument("abbr")
 parser.add_argument("-c", action="store_true", help="Open comment file")
 parser.add_argument("-m", action="store_true", help="Open html file")
 parser.add_argument("-r", action="store_true", help="Open root file")
+parser.add_argument("-d", action="store_true", help="Run git diff with published")
+parser.add_argument("-e", action="store_true", help="Run git diff --color-words=. with published")
 args = parser.parse_args()
 
 abbr = args.abbr
@@ -135,6 +137,16 @@ else:
 
 # Check whether file exists before opening.
 if pathlib.Path(json_filename).is_file():
-    subprocess.run(["vi", json_filename])
+    if args.d:
+        # Run git diff against branch published.
+        # Note: current directory must be within bilara-data.
+        subprocess.run(["git", "diff", "published", "--", json_filename])
+    elif args.e:
+        # Run git diff --color-words=. against branch published.
+        # Note: current directory must be within bilara-data.
+        subprocess.run(["git", "diff",  "--color-words=.", "published", "--", json_filename])
+    else:
+        # Open the file.
+        subprocess.run(["vi", json_filename])
 else:
     print(f"File does not exist: {json_filename}")
