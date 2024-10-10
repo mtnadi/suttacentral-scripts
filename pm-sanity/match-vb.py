@@ -159,7 +159,7 @@ def check_line(pm_sid, vb_sid, monks_or_nuns, pm_or_vb):
         # Also skip checking (sub)chapter on blah is finished segments.
         # Left them in the CSV
         # data in case we later want to check it against the vb text.
-        if "ecitation" not in vb_sid and "hapter" not in vb_sid:
+        if "ecitation" not in vb_sid and "hapter" not in vb_sid and "nid:" not in vb_sid:
             vb_sid = "rule title, checking it's in order:"
 
             # Check whether the rule title has the right number.
@@ -198,7 +198,9 @@ def check_line(pm_sid, vb_sid, monks_or_nuns, pm_or_vb):
         """
         if pm_or_vb == "pm":
             # print out pm segment ids and text on alternate lines to use with diff
-            print(f"{pm_sid}<{vb_sid}")
+            if vb_sid.startswith("rule title, checking"):
+                vb_sid = ""
+            print(f"{vb_sid}>{pm_sid}")
             print(f"{pm_stext}")
         else:
             # print out vb segment ids and text on alternate lines to use with diff
@@ -206,14 +208,14 @@ def check_line(pm_sid, vb_sid, monks_or_nuns, pm_or_vb):
                 vb_sid = pm_sid
             if vb_stext.startswith("yay") or vb_stext.startswith("UH OH"):
                 vb_stext = pm_stext
-            print(f"{pm_sid}>{vb_sid}")
+            print(f"{vb_sid}<{pm_sid}")
             print(f"{vb_stext}")
 
 
 # Run!
 #compare(bu_pm_vb_segments_file, "bu", "pm")
-#compare(bu_pm_vb_segments_file, "bu", "vb")
+compare(bu_pm_vb_segments_file, "bu", "vb")
 #check_same_text(bu_pm_file)
 
 #compare(bi_pm_vb_segments_file, "bi", "pm")
-compare(bi_pm_vb_segments_file, "bi", "vb")
+#compare(bi_pm_vb_segments_file, "bi", "vb")
