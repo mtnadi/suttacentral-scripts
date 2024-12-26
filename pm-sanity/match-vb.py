@@ -148,7 +148,7 @@ def check_line(pm_sid, vb_sid, monks_or_nuns, pm_or_vb):
 
         # If we're looking at the bi-pm, then if the vb text points to
         # something in pli-tv-bu, then substitute monk/he/him
-        if "pli-tv-bu-" in vb_sid:
+        if monks_or_nuns == "bi" and "pli-tv-bu-" in vb_sid:
             vb_stext = vb_stext.replace("monk", "nun")
             vb_stext = vb_stext.replace(" he ", " she ")
             vb_stext = vb_stext.replace('"he ', '"she ')
