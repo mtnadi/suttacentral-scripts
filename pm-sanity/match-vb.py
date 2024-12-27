@@ -7,8 +7,6 @@ import subprocess
 ## Set up directories and filenames.
 CWD = os.getcwd()
 VINAYA_PATH = "/home/nadi/Development/sc/bilara-data/translation/en/brahmali/vinaya"
-VERBOSE = False
-VERBOSE = True  # ohhh the really bad programming...
 # TODO bu pc 31 and 49 are borken
 
 bi_pm_file = f"{VINAYA_PATH}/pli-tv-bi-pm_translation-en-brahmali.json"
@@ -17,26 +15,6 @@ bu_pm_file = f"{VINAYA_PATH}/pli-tv-bu-pm_translation-en-brahmali.json"
 bi_pm_vb_segments_file = "pm-to-vb-bi.csv"
 bu_pm_vb_segments_file = "pm-to-vb-bu.csv"
 
-def isSegmentRange(text):
-    """
-    Given a string, returns True if the string contains a segment range.
-    Assumes this is formatted in "{from segment} - {to segment}"
-    """
-    return " - " in text
-
-def isSegmentId(text):
-    """
-    Given a string, returns True if the string is a valid SC segment ID.
-    """
-    return True
-
-def make_segment_id_dict(csv_file):
-    """
-    Create a dictionary of pm segment IDs to vb segment IDs.
-    """
-    lookup = {}
-    f = open(file=csv_file)
-    return lookup
 
 def get_translation_text(segment_ref):
     if "," in segment_ref:
@@ -64,32 +42,6 @@ def get_segment_text(segment_id):
     else:
         text = ""
     return text
-
-def check_same_text(pm_file):
-    """
-    For a pm file, check all its text matches with equivalent vb segments.
-    """
-    seen_first_line = False
-    seen_last_line = False
-
-    f = open(file=pm_file)
-    all_lines = f.readlines()
-    for line in all_lines:
-        if line == '{\n':
-            seen_first_line = True
-        elif line.strip() == '}':
-            seen_last_line = True
-        elif seen_first_line and not seen_last_line:
-            print_check_line(line)
-
-def print_check_line(line):
-    """
-    For a content line in a pm file, check whether there is an equivalent segment
-    in the vb and complain if the text doesn't agree.  Or something like that.
-    """
-    (segment_id, segment_text) = line.strip().rstrip(",").split(": ", 1)
-    print(f"{segment_id}...{segment_text}")
-    # TODO actually check...
 
 
 # ohhhh the bad programming...!
@@ -151,6 +103,7 @@ def check_line(pm_sid, vb_sid, monks_or_nuns, pm_or_vb):
         if monks_or_nuns == "bi" and "pli-tv-bu-" in vb_sid:
             vb_stext = vb_stext.replace("monk", "nun")
             vb_stext = vb_stext.replace(" he ", " she ")
+            vb_stext = vb_stext.replace("He ", "She ")
             vb_stext = vb_stext.replace('"he ', '"she ')
             vb_stext = vb_stext.replace(" him", " her")
             vb_stext = vb_stext.replace(" his ", " her ")
@@ -174,28 +127,7 @@ def check_line(pm_sid, vb_sid, monks_or_nuns, pm_or_vb):
                 class_index += 1
                 rule_number = 1
 
-    okay = vb_stext in ["SKIP", "yay!"]
-    """ this doesn't work
-    if not okay:
-        # Check if segment texts match!
-        okay = True
-        # This doesn't work good.  TODO
-        # I'm not convinced ndiff is helping us here.
-        for index, diffstr in enumerate(difflib.ndiff(pm_stext.strip('"'), vb_stext.strip('"'))):
-            if diffstr[0] == " ":
-                continue
-            elif diffstr[0] in ["-", "+"]:
-                if diffstr[-1] not in '‘“’” ':
-                    okay = False
-                    break
-    """
-
-    if VERBOSE or not okay:
-        """
-        print(f"{pm_sid: <26} {pm_stext}")
-        print(f"{vb_sid: <26} {vb_stext}")
-        print()
-        """
+    if vb_stext not in ["SKIP", "yay!"]:
         if pm_or_vb == "pm":
             # print out pm segment ids and text on alternate lines to use with diff
             if vb_sid.startswith("rule title, checking"):
@@ -214,8 +146,7 @@ def check_line(pm_sid, vb_sid, monks_or_nuns, pm_or_vb):
 
 # Run!
 #compare(bu_pm_vb_segments_file, "bu", "pm")
-compare(bu_pm_vb_segments_file, "bu", "vb")
-#check_same_text(bu_pm_file)
+#compare(bu_pm_vb_segments_file, "bu", "vb")
 
 #compare(bi_pm_vb_segments_file, "bi", "pm")
-#compare(bi_pm_vb_segments_file, "bi", "vb")
+compare(bi_pm_vb_segments_file, "bi", "vb")
