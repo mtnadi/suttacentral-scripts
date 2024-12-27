@@ -130,6 +130,9 @@ else:
     if book in ["bi", "bu"]:
         if rule_class == "as":
             print("still TODO")
+        elif rule_class == "pm":
+            # pātimokkha
+            json_filename += f"/pli-tv-{book}-pm_{bilara_type}{language}.json"
         else:
             json_filename += f"/pli-tv-{book}-vb/pli-tv-{book}-vb-{rule_class}/pli-tv-{book}-vb-{rule_class}{number}_{bilara_type}{language}.json"
     else:
