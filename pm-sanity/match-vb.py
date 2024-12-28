@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from contextlib import redirect_stdout
+from datetime import datetime
 import difflib
 import os
 import subprocess
@@ -132,7 +134,8 @@ def check_line(pm_sid, vb_sid, monks_or_nuns, pm_or_vb):
             # print out pm segment ids and text on alternate lines to use with diff
             if vb_sid.startswith("rule title, checking"):
                 vb_sid = ""
-            print(f"{vb_sid}>{pm_sid}")
+            #print(f"{vb_sid}>{pm_sid}")
+            print(f"{vb_sid}-{pm_sid}")
             print(f"{pm_stext}")
         else:
             # print out vb segment ids and text on alternate lines to use with diff
@@ -140,7 +143,8 @@ def check_line(pm_sid, vb_sid, monks_or_nuns, pm_or_vb):
                 vb_sid = pm_sid
             if vb_stext.startswith("yay") or vb_stext.startswith("UH OH"):
                 vb_stext = pm_stext
-            print(f"{vb_sid}<{pm_sid}")
+            #print(f"{vb_sid}<{pm_sid}")
+            print(f"{vb_sid}-{pm_sid}")
             print(f"{vb_stext}")
 
 
@@ -149,4 +153,24 @@ def check_line(pm_sid, vb_sid, monks_or_nuns, pm_or_vb):
 #compare(bu_pm_vb_segments_file, "bu", "vb")
 
 #compare(bi_pm_vb_segments_file, "bi", "pm")
-compare(bi_pm_vb_segments_file, "bi", "vb")
+#compare(bi_pm_vb_segments_file, "bi", "vb")
+
+timestamp = datetime.now().strftime("%y%m%d-%H%M%S")
+params = [
+        ("bu", "pm"),
+        ("bu", "vb"),
+        ("bi", "pm"),
+        ("bi", "vb")
+        ]
+for (sangha, text) in params:
+    outfile_name = f"{timestamp}-{sangha}-{text}.txt"
+    with open(outfile_name, 'w') as f:
+        with redirect_stdout(f):
+            if sangha == "bu":
+                compare(bu_pm_vb_segments_file, sangha, text)
+            else:
+                compare(bi_pm_vb_segments_file, sangha, text)
+    # bad programming...sigh
+    class_index = 0
+    rule_number = 1
+
