@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from contextlib import redirect_stdout
+import csv
 from datetime import datetime
 import difflib
 import os
@@ -75,8 +76,11 @@ def compare(key_file, monks_or_nuns, pm_or_vb):
     or if it is not a vb segment ID, check that the heading is in order.
     """
     with open(key_file) as csv_file:
-        for line in csv_file:
-            [pm_sid, vb_sid] = line.strip().split(",",1)
+        reader = csv.reader(csv_file)
+        for [pm_sid, vb_sid] in reader:
+            #[pm_sid, vb_sid] = line.strip().split(",",1)
+            pm_sid = f'"{pm_sid}"'
+            vb_sid = f'"{vb_sid}"'
             check_line(pm_sid, vb_sid, monks_or_nuns, pm_or_vb)
 
 def check_line(pm_sid, vb_sid, monks_or_nuns, pm_or_vb):
