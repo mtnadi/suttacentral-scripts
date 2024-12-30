@@ -3,7 +3,6 @@
 from contextlib import redirect_stdout
 import csv
 from datetime import datetime
-import difflib
 import os
 import subprocess
 

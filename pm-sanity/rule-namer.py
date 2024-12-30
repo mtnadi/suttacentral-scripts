@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from contextlib import redirect_stdout
+from datetime import datetime
 import os
 import subprocess
 
@@ -78,14 +80,30 @@ def generate_line(pm_sid, ref_sid, monks_or_nuns, pm_or_ref):
 
     if pm_or_ref == "pm":
         # print out pm segment ids and text on alternate lines to use with diff
-        print(f"{ref_sid}>{pm_sid}")
+        print(f"{ref_sid}-{pm_sid}")
         print(f"{pm_stext}")
     else:
         # print out ref segment ids and text on alternate lines to use with diff
-        print(f"{ref_sid}<{pm_sid}")
+        print(f"{ref_sid}-{pm_sid}")
         print(f"{ref_stext}")
 
 
 # Run!
 #generate(bu_pm_title_segments_file, "bu", "pm")
-generate(bu_pm_title_segments_file, "bu", "ref")
+#generate(bu_pm_title_segments_file, "bu", "ref")
+
+timestamp = datetime.now().strftime("%y%m%d-%H%M%S")
+params = [
+        ("bu", "pm"),
+        ("bu", "ref"),
+        ("bi", "pm"),
+        ("bi", "ref")
+        ]
+for (sangha, source) in params:
+    outfile_name = f"{timestamp}-title-{sangha}-{source}.txt"
+    with open(outfile_name, 'w') as f:
+        with redirect_stdout(f):
+            if sangha == "bu":
+                generate(bu_pm_title_segments_file, sangha, source)
+            else:
+                generate(bi_pm_title_segments_file, sangha, source)
