@@ -151,12 +151,17 @@ def check_line(pm_sid, vb_sid, monks_or_nuns, pm_or_vb):
             print(f"{vb_stext}")
 
 
-# Run!
-#compare(bu_pm_vb_segments_file, "bu", "pm")
-#compare(bu_pm_vb_segments_file, "bu", "vb")
-
-#compare(bi_pm_vb_segments_file, "bi", "pm")
-#compare(bi_pm_vb_segments_file, "bi", "vb")
+"""
+cp the generated file to b*-pm/vb.txt first
+cp bi-vb.txt comp-bi.txt
+cp bu-vb.txt comp-bu.txt
+git add comp-b*.txt
+git ci -m "comp: load vb"
+cp bi-pm.txt comp-bi.txt
+cp bu-pm.txt comp-bu.txt
+git add comp-b*.txt
+git ci -m "comp: load pm"
+"""
 
 timestamp = datetime.now().strftime("%y%m%d-%H%M%S")
 params = [
