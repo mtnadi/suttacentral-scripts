@@ -54,10 +54,8 @@ def generate_line(sid):
         uid = "pli-tv-bu-vb-as1-7"
     elif uid == "pli-tv-bi-vb-as1":
         uid = "pli-tv-bi-vb-as1-7"
-    elif uid == "pli-tv-bi-vb-pj1":
-        uid = "pli-tv-bi-vb-pj1-4"
-    elif uid == "pli-tv-bi-pc91":
-        uid = "pli-tv-bi-pc91-93"
+    elif uid == "pli-tv-bi-vb-pc91":
+        uid = "pli-tv-bi-vb-pc91-93"
     elif uid == "pli-tv-bi-vb-pd2":
         uid == "pli-tv-bi-vb-pd2-8"
 
